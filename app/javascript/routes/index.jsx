@@ -7,19 +7,22 @@ import CreateReferral from "../components/referral/CreateReferral";
 
 const AppRoutes = ({user, setUser}) => {
   return (
-      <Routes>
-        <Route path='/login' element={<Login setUser={setUser} user={user}/>} />
-        <Route path='/signup' element={<Signup setUser={setUser} user={user} />} />
-        {user ? (
-          <>
-            <Route path='/send_referral' element={<CreateReferral />} />
-            <Route path='/' element={<Home user={user} />} />
-          </>
-        ) : 
-        (
+    <Routes>
+      <Route path='/login' element={<Login setUser={setUser} user={user}/>} />
+      <Route path='/signup' element={<Signup setUser={setUser} user={user} />} />
+      {user ? (
+        <>
+          <Route path='/send_referral' element={<CreateReferral />} />
+          <Route path='/' element={<Home user={user} />} />
+        </>
+      ) :
+      (
+        <>
           <Route path='/' element={<Login setUser={setUser} user={user}/>} />
-        )}
-      </Routes>
+          <Route path='/signup' element={<Signup setUser={setUser} user={user} />} />
+        </>
+      )}
+    </Routes>
   )
 };
 

@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header setUser={setUser} user={user} />
+        {user && <Header setUser={setUser} user={user} />}
         <AppRoutes user={user} setUser={setUser} />
       </Router>
     </>

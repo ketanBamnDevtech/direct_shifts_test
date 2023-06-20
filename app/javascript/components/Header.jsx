@@ -20,19 +20,21 @@ const Header = ({setUser, user}) => {
   }, [user]);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexGrow: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        paddingRight: '10px',
-      }}
-    >
-      <Button variant="contained" color="primary" onClick={handleLogout}>
-        Logout
-      </Button>
-    </Box>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexGrow: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          paddingRight: '10px',
+        }}
+      >
+        <Button variant="contained" color="primary" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Box>
+    </>
   )
 }
 

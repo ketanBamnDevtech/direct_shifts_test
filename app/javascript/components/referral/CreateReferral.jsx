@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, Box, FormHelperText } from '@material-ui/core';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,6 +34,7 @@ const CreateReferral = () => {
   const client = localStorage.getItem('client');
   const uid = localStorage.getItem('uid');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   const createReferrals = async (e) => {
     e.preventDefault();
@@ -52,6 +54,7 @@ const CreateReferral = () => {
         }
       });
       if (response.status === 200) {
+        setReferralEmail('')
         setReferralMessage('Referral sent successfully')
       }
     } catch (error) {
@@ -61,6 +64,15 @@ const CreateReferral = () => {
 
   return (
     <>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className={classes.submitButton}
+        onClick={() => navigate("/")}
+      >
+        Back
+      </Button>
       <h2>Send Referral:</h2>
 
       <br />

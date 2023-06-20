@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, FormHelperText } from '@material-ui/core';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -35,6 +35,7 @@ const Signup = ({setUser, user}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [signupError, setSignupError] = useState('');
 
   useEffect(() => {
     if (user){
@@ -63,14 +64,18 @@ const Signup = ({setUser, user}) => {
         setUser(response.data.data);
       }
     })
-    .catch(error => {
-      console.log(error);
+    .catch(error2 => {
+      const errorMsg = error2.response.data.errors
+      setSignupError(errorMsg.full_messages)
     });
   }
 
   return (
     <div className={classes.root}>
       <form className={classes.form}>
+        <br />
+          {signupError && <FormHelperText error>{signupError}</FormHelperText>}
+        <br />
         <TextField
           className={classes.input}
           label='Name'

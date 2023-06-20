@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Link, Box } from '@material-ui/core';
+import { TextField, Button, Link, Box, FormHelperText } from '@material-ui/core';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +32,7 @@ const Login = ({setUser, user}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();
+  const [signinError, setSigninError] = useState('');
 
   useEffect(() => {
     if (user){
@@ -61,14 +62,18 @@ const Login = ({setUser, user}) => {
         localStorage.setItem('uid', response.headers['uid']);
         setUser(response.data.data);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error2) {
+      const errorMsg = error2.response.data.errors
+      setSigninError(errorMsg)
     }
   };
 
   return (
     <Box className={classes.root}>
       <form className={classes.form} onSubmit={handleSubmit}>
+        <br />
+          {signinError && <FormHelperText error>{signinError}</FormHelperText>}
+        <br />
         <TextField 
           id="email"
           label="Email"
