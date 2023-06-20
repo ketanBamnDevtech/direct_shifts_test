@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Pagination } from '@mui/material';
 
 const GetReferral = () => {
   const [referrals, setReferrals] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const client = localStorage.getItem('client');
   const uid = localStorage.getItem('uid');
   const token = localStorage.getItem('token');
 
   const fetchReferrals = async () => {
     try {
-      const response = await axios.get(`/api/v1/user_referrals`, {
+      const response = await axios.get(`/api/v1/user_referrals?page=${currentPage}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -21,6 +24,7 @@ const GetReferral = () => {
       });
       if (response.status === 200) {
         setReferrals(response.data.referrals)
+        setTotalPages(response.data.total_pages);
       }
     } catch (error) {
       console.log(error);
@@ -29,7 +33,11 @@ const GetReferral = () => {
 
   useEffect(() => {
     fetchReferrals();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <>
@@ -55,6 +63,7 @@ const GetReferral = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {referrals.length > 0 && <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />}
     </>
   );
 }
