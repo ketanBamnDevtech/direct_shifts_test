@@ -66,7 +66,7 @@ const Signup = ({setUser, user}) => {
     })
     .catch(error2 => {
       const errorMsg = error2.response.data.errors
-      setSignupError(errorMsg.full_messages)
+      setSignupError(errorMsg.full_messages.join(', '))
     });
   }
 

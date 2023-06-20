@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { Pagination } from '@mui/material';
@@ -53,12 +53,12 @@ const GetReferral = () => {
 
           <TableBody>
             {referrals.map((referral, index) => (
-              <>
-                <TableRow key={index}>
-                  <TableCell key={index}>{index + 1}</TableCell>
-                  <TableCell key={index}>{referral.email}</TableCell><br />
+              <Fragment key={index}>
+                <TableRow key={`row_${index}`}>
+                  <TableCell key={`serialNumber_${index}`}>{index + 1}</TableCell>
+                  <TableCell key={`email_${index}`}>{referral.email}</TableCell>
                 </TableRow>
-              </>
+              </Fragment>
             ))}
           </TableBody>
         </Table>
