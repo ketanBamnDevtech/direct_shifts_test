@@ -1,4 +1,13 @@
-import React from "react";
-import Routes from "../routes";
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "../routes";
 
-export default props => <>{Routes}</>;
+const App = () => {
+  const [user, setUser] = useState(null);
+
+  return (
+    <AppRoutes user={user} setUser={setUser} />
+  );
+}
+
+export default App;
