@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import GetReferral from "./referral/GetReferral";
 
 const Home = ({user, setUser}) => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Home = ({user, setUser}) => {
         <p>Welcome, {user.name}</p>
         <button onClick={handleLogout}>Logout</button>
       </div>
+      <GetReferral />
     </div>
   );
 };

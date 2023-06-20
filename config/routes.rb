@@ -4,14 +4,12 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
-  get '*path', to: 'homepage#index', via: :all
-
-  resources :referrals, only: [:index, :create]
-
   namespace :api do
     namespace :v1 do
       get '/user_referrals', to: 'referrals#user_referrals'
       post '/referrals', to: 'referrals#create'
     end
-  end  
+  end
+
+  get '*path', to: 'homepage#index', via: :all
 end

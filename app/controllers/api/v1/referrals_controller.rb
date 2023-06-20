@@ -1,8 +1,8 @@
 class Api::V1::ReferralsController < ApplicationController
 
   def user_referrals
-    @referrals = Referral.where(referrer_id: current_user.id)
-    render json: {status: 200, referrals: @referral}
+    @referrals = current_user.referrals
+    render json: {referrals: @referrals}
   end
 
   def create
