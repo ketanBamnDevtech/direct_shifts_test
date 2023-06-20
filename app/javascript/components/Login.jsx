@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, Link, Box } from '@material-ui/core';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,20 +27,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Login = ({setUser}) => {
+const Login = ({setUser, user}) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();
 
+  useEffect(() => {
+    if (user){
+      navigate("/");
+    }
+  }, [user]);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
+    const userData = {
+      email: email,
+      password: password,
+    }
+
     try {
-      const response = await axios.post('/api/login', { email, password });
-      if (response.data) {
-          setUser(response.data.user);
-          localStorage.setItem('token', response.data.token);
+      const response = await axios.post('/auth/sign_in', userData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         }
+      });
+      if (response.status === 200) {
+        localStorage.setItem('user', response.data.data);
+        localStorage.setItem('token', response.headers['access-token']);
+        localStorage.setItem('client', response.headers['client']);
+        localStorage.setItem('uid', response.headers['uid']);
+        setUser(response.data.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -48,9 +69,30 @@ const Login = ({setUser}) => {
   return (
     <Box className={classes.root}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <TextField id="email" label="Email" variant="outlined" margin="normal" value={email} onChange={e => setEmail(e.target.value)} />
-        <TextField id="password" label="Password" type="password" variant="outlined" margin="normal" value={password} onChange={e => setPassword(e.target.value)} />
-        <Button type="submit" variant="contained" color="primary" className={classes.submitButton}>
+        <TextField 
+          id="email"
+          label="Email"
+          variant="outlined"
+          margin="normal"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <TextField 
+          id="password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <Button
+         type="submit"
+         variant="contained"
+         color="primary"
+         className={classes.submitButton}
+         onClick={handleSubmit}
+        >
           Log In
         </Button>
         <Link href="/signup">Don't have an account? Sign Up</Link>

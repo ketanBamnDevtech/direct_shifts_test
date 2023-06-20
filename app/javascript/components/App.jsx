@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "../routes";
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('user'));
 
   return (
     <AppRoutes user={user} setUser={setUser} />

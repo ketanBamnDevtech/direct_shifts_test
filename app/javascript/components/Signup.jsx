@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,11 +29,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = ({setUser}) => {
+const Signup = ({setUser, user}) => {
+  const navigate = useNavigate();
   const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (user){
+      navigate("/");
+    }
+  }, [user]);
+
+  const handleSignup = () => {
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+    }
+    axios.post('/auth', userData, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }
+    })
+    .then(response => {
+      if(response.status === 200) {
+        localStorage.setItem('token', response.headers['access-token']);
+        localStorage.setItem('client', response.headers['client']);
+        localStorage.setItem('uid', response.headers['uid']);
+        localStorage.setItem('user', response.data.data);
+        setUser(response.data.data);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
   return (
     <div className={classes.root}>
@@ -62,6 +97,7 @@ const Signup = ({setUser}) => {
           className={classes.button}
           variant='contained'
           color='primary'
+          onClick={handleSignup}
         >
           Sign Up
         </Button>

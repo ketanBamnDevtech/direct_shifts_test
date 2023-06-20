@@ -8,9 +8,9 @@ const AppRoutes = ({user, setUser}) => {
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login setUser={setUser} />} />
-        <Route path='/signup' element={<Signup setUser={setUser} />} />
-        <Route path='/' element={user ? <Home user={user} /> : <Login setUser={setUser} />} />
+        <Route path='/login' element={<Login setUser={setUser} user={user}/>} />
+        <Route path='/signup' element={<Signup setUser={setUser} user={user} />} />
+        <Route path='/' element={user ? <Home user={user} setUser={setUser} /> : <Login setUser={setUser} user={user}/>} />
       </Routes>
     </Router>
   )
