@@ -73,7 +73,7 @@ const Signup = ({setUser, user}) => {
       <form className={classes.form}>
         <TextField
           className={classes.input}
-          label='Username'
+          label='Name'
           variant='outlined'
           onChange={e => setName(e.target.value)}
           value={name}
