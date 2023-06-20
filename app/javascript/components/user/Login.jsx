@@ -56,7 +56,7 @@ const Login = ({setUser, user}) => {
         }
       });
       if (response.status === 200) {
-        localStorage.setItem('user', response.data.data);
+        localStorage.setItem('user', JSON.stringify(response.data.data));
         localStorage.setItem('token', response.headers['access-token']);
         localStorage.setItem('client', response.headers['client']);
         localStorage.setItem('uid', response.headers['uid']);
@@ -74,7 +74,7 @@ const Login = ({setUser, user}) => {
         <br />
           {signinError && <FormHelperText error>{signinError}</FormHelperText>}
         <br />
-        <TextField 
+        <TextField
           id="email"
           label="Email"
           type="email"
@@ -84,7 +84,7 @@ const Login = ({setUser, user}) => {
           onChange={e => setEmail(e.target.value)}
           required
         />
-        <TextField 
+        <TextField
           id="password"
           label="Password"
           type="password"

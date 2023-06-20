@@ -4,7 +4,7 @@ import Header from "./Header";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   return (
     <>

@@ -2,7 +2,7 @@ class Api::V1::ReferralsController < ApplicationController
 
   def user_referrals
     page_number = params[:page] || 1
-    @referrals = current_user.referrals.paginate(page: page_number)
+    @referrals = current_user.referrals.order(id: :desc).paginate(page: page_number)
     render json: {referrals: @referrals, total_pages: @referrals.total_pages}
   end
 

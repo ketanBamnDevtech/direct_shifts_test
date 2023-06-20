@@ -60,7 +60,7 @@ const Signup = ({setUser, user}) => {
         localStorage.setItem('token', response.headers['access-token']);
         localStorage.setItem('client', response.headers['client']);
         localStorage.setItem('uid', response.headers['uid']);
-        localStorage.setItem('user', response.data.data);
+        localStorage.setItem('user', JSON.stringify(response.data.data));
         setUser(response.data.data);
       }
     })
