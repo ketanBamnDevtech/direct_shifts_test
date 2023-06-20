@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby version
+  3.0.2
 
-Things you may want to cover:
+- Rails version
+  7.0.4.3
 
-* Ruby version
+* mysql database is being used
 
-* System dependencies
+Add `database.yml` file in config folder of the project with database configuration, as per your system.
+`cp config/database.yml.sample config/database.yml`
+Add username and password value in datbase.yml
 
-* Configuration
+To setup the project run `bin/setup`
+It install all the dependencies required for the project(bundle, db setup, yarn).
 
-* Database creation
+To run server `bin/dev`
+You can hit `localhost:3000` to run the application on browser.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Letter opener is being used in development mode to view emails.
+Emails can be viewed on browser on `http://localhost:3000/letter_opener`
