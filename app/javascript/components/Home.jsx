@@ -1,33 +1,18 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import GetReferral from "./referral/GetReferral";
+import { Button } from '@material-ui/core';
 
-const Home = ({user, setUser}) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user){
-      navigate("/");
-    }
-    else {
-      navigate("/login");
-    }
-  }, [user]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('client');
-    localStorage.removeItem('uid');
-    localStorage.removeItem('user');
-    setUser(null);
-  };
+const Home = ({user}) => {
 
   return (
     <div>
       <div>
         <p>Welcome, {user.name}</p>
-        <button onClick={handleLogout}>Logout</button>
       </div>
+
+      <Button variant="contained" color="primary" href="/send_referral">
+        Send Referral
+      </Button>
       <GetReferral />
     </div>
   );

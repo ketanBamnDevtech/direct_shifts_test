@@ -10,7 +10,7 @@ class Api::V1::ReferralsController < ApplicationController
     if @referral.save
       # send referral email
       send_referral_email
-      render json: {status: 200, message: "Referral email sent successfully.", referral: @referral}
+      render json: {referral: @referral}
     else
       render json: { errors: @referral.errors }
     end

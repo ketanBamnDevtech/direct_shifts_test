@@ -74,9 +74,11 @@ const Signup = ({setUser, user}) => {
         <TextField
           className={classes.input}
           label='Name'
+          type="email"
           variant='outlined'
           onChange={e => setName(e.target.value)}
           value={name}
+          required
         />
         <TextField
           className={classes.input}
@@ -84,6 +86,7 @@ const Signup = ({setUser, user}) => {
           variant='outlined'
           onChange={e => setEmail(e.target.value)}
           value={email}
+          required
         />
         <TextField
           className={classes.input}
@@ -92,6 +95,7 @@ const Signup = ({setUser, user}) => {
           variant='outlined'
           onChange={e => setPassword(e.target.value)}
           value={password}
+          required
         />
         <Button
           className={classes.button}

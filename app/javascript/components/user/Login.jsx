@@ -72,10 +72,12 @@ const Login = ({setUser, user}) => {
         <TextField 
           id="email"
           label="Email"
+          type="email"
           variant="outlined"
           margin="normal"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
         />
         <TextField 
           id="password"
@@ -85,6 +87,7 @@ const Login = ({setUser, user}) => {
           margin="normal"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
         <Button
          type="submit"
